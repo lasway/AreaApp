@@ -2,8 +2,6 @@ package com.example.areaapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.*;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -22,21 +20,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonSubmit.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View v) {
+        try {
+            EditText editTextRadius = findViewById(R.id.edittext_radius);
+            double radius = Double.parseDouble(editTextRadius.getText().toString());
 
-        EditText editTextRadius = findViewById(R.id.edittext_radius);
-        double radius = Double.parseDouble(editTextRadius.getText().toString());
+            Circle circle = new Circle();
+            circle.setRadius(radius);
+            double area = circle.calculateArea();
+            displayAreaDialogMessage(area);
 
-        Circle circle = new Circle();
-        circle.setRadius(radius);
-        double area = circle.calculateArea();
-        displayAreaDialogMessage(area);
-
-
+        }catch (Exception e){
+            DialogMessage();
+        }
     }
-    private void displayAreaDialogMessage(double area){
+    private void DialogMessage(){
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("oups! Enter radius")
+                .setTitle("Alert Message");
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void displayAreaDialogMessage(double area){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The area is "+ area +" meter squared")
@@ -58,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
-
-
 
 
     public class Circle {
