@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AreaApp</string>
+    <string name="calculator_radius_hint">Enter Radius</string>
+    <string name="calculator_action_submit">Calculate</string>
+</resources>
